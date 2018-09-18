@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+}
+
+group 'dpg'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'ws.schild:jave-core:2.4.3'
+    compile 'ws.schild:jave-native-win64:2.4.3'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'dpg.FlacToMp3Converter'
+        )
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
